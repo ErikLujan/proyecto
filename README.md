@@ -1,5 +1,5 @@
 # 📋 Primer Parcial SPD
-![Logo de GitHub](https://github.com/ErikLujan/proyecto/blob/main/Imagen/Contador%20de%200%20a%2099%20Arduino.png)
+![Logo de GitHub](https://github.com/ErikLujan/proyecto/blob/main/Imagen/arduino.jpeg)
 
 # <h2>👥 Integrantes del grupo</h2>
 - Lucio Belloni
