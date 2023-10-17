@@ -294,4 +294,4 @@ void numeroNueve(void) {
 ```
 
 # 👾 Link al Proyecto
-- [Proyecto](https://www.tinkercad.com/things/cGshGGJTBoT){:target="_blank"}
+- [Proyecto](https://www.tinkercad.com/things/cGshGGJTBoT)
