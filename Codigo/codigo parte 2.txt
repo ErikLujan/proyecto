@@ -15,7 +15,7 @@
 
 int estadoInterruptor; 
 int contador = 0;
-int umbralTemperatura = 225;
+int valorTemperatura = 225;
 
 void setup()
 {
@@ -44,7 +44,7 @@ void loop()
   estadoInterruptor = digitalRead(INTERRUPTOR);
   int lecturaTemperatura = analogRead(TEMPERATURA);
  
-  if (lecturaTemperatura > umbralTemperatura)
+  if (lecturaTemperatura > valorTemperatura)
   {
     ApagarDisplay();
   }
