@@ -95,7 +95,6 @@ bool esPrimo(int numero) {
   return true;
 }
 
-
 void ApagarDisplay()// Apaga todos los leds de los display
 {
   apagarLeds(A);
@@ -165,7 +164,6 @@ void prenderDigito(int digito)
     digitalWrite(DECENA, HIGH);
   }
 }
-
 
 void MostrarContador(int contador)
 {
