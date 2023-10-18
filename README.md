@@ -5,7 +5,7 @@
 - Lucio Belloni
 - Ciro Luongo
 - Erik Lujan
-# <h2>📌 Proyecto: Contador de 0 a 99 con Display de 7 segmentos y multiplexación</h2>
+# <h2>📌 Parte 1: Contador de 0 a 99 con Display de 7 segmentos y multiplexación</h2>
 ![Logo de GitHub](https://github.com/ErikLujan/proyecto/blob/main/Imagen/Contador%20de%200%20a%2099%20Arduino.png)
 
 # <h2>📎 Descripcion del proyecto</h2>
@@ -293,5 +293,79 @@ void numeroNueve(void) {
 }
 ```
 
-# 👾 Link al Proyecto
+# 👾 <h2>Link al Proyecto</h2>
 - [Proyecto](https://www.tinkercad.com/things/86LzXQmuniS)
+
+# <h2>📌 Parte 2: Modificación con Interruptor Deslizante y Números Primos</h2>
+![Logo de GitHub](https://github.com/ErikLujan/proyecto/blob/main/Imagen/Modificacion%20con%20Interruptor.png)
+
+# <h2>📎 Descripcion del proyecto</h2>
+Este circuito es una modificacion del anterior, con la diferencia de que en lugar de manejarse con pulsadores, ahora se maneja con un interruptor deslizante (switch). El cual si se encuentro del lado izquierdo (HIGH), se mostrara el contador normal que va de 0 a 99. Caso contrario, si el interruptor esta del lado derecho (LOW), solo me mostrara los numeros primos que hay entre 0 y 99.
+
+# <h2>Cambios en la funcion principal (loop)</h2>
+A diferencia de la parte 1, aca hubo unos cuantos cambios:
+- La función loop() comienza leyendo el estado del interruptor desde el pin INTERRUPTOR y la lectura de la temperatura desde el pin TEMPERATURA.
+- Verifica si la temperatura medida (lecturaTemperatura) supera el valor de temperatura (valorTemperatura). Si la temperatura es alta, apaga los displays llamando a ApagarDisplay().
+- Si la temperatura está por debajo del valor, entonces se procede a verificar el estado del interruptor. Si esta en HIGH, se muestra el contador con todos los numeros del 0 al 99. Caso contrario, se mostraran solamente los numeros primos dentro de ese rango (0-99).
+```
+void loop()
+{
+  estadoInterruptor = digitalRead(INTERRUPTOR);
+  int lecturaTemperatura = analogRead(TEMPERATURA);
+ 
+  if (lecturaTemperatura > valorTemperatura)
+  {
+    ApagarDisplay();
+  }
+  else 
+  {
+    if (estadoInterruptor == HIGH)
+    {
+      for (int i = 0; i <= 99; i++)
+      {
+        MostrarContador(i);
+        estadoInterruptor = digitalRead(INTERRUPTOR);
+        if (estadoInterruptor == LOW)
+        {
+          break;
+        }
+      }
+    }
+    else
+    {
+      for (int i = 0; i <= 99; i++)
+      {
+        if (esPrimo(i))
+        {
+          MostrarContador(i);
+        }
+        estadoInterruptor = digitalRead(INTERRUPTOR);
+        if (estadoInterruptor == HIGH)
+        {
+          break;
+        }
+      }
+    }
+  }
+}
+```
+
+# <h2>Funcion esPrimo()</h2>
+- Esta es una función de tipo booleana que verifica si el número dado es primo.
+- Toma un número como entrada y devuelve true si es primo y false si no lo es.
+```
+bool esPrimo(int numero) {
+  if (numero <= 1) {
+    return false;
+  }
+  for (int i = 2; i * i <= numero; i++) {
+    if (numero % i == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+```
+
+# 👾 <h2>Link al Proyecto</h2>
+- [Proyecto](https://www.tinkercad.com/things/2oZenVKQGJk)
