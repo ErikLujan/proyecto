@@ -367,5 +367,5 @@ bool esPrimo(int numero) {
 }
 ```
 
-# 👾 <h2>Link al Proyecto</h2>
+# <h2>👾 Link al Proyecto</h2>
 - [Proyecto](https://www.tinkercad.com/things/2oZenVKQGJk)
