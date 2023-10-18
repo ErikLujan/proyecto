@@ -203,43 +203,43 @@ void apagarLeds(int pin)
 - No toman parámetros ni retornan valores. Cada función está diseñada para mostrar un número específico en los displays.
 ```
 void numeroUno(void){
-    apagarLeds(A);
-  	apagarLeds(D);
-  	apagarLeds(E);
-  	apagarLeds(F);
-    apagarLeds(G);
-	encenderLeds(B);
-    encenderLeds(C);
+  apagarLeds(A);
+  apagarLeds(D);
+  apagarLeds(E);
+  apagarLeds(F);
+  apagarLeds(G);
+  encenderLeds(B);
+  encenderLeds(C);
 }
 
 void numeroDos(void){
-	apagarLeds(C);
-  	apagarLeds(F);
-  	encenderLeds(A);
-	encenderLeds(B);
-  	encenderLeds(D);
-  	encenderLeds(E);
-  	encenderLeds(G); 	
+  apagarLeds(C);
+  apagarLeds(F);
+  encenderLeds(A);
+  encenderLeds(B);
+  encenderLeds(D);
+  encenderLeds(E);
+  encenderLeds(G); 	
 }
 
 void numeroTres(void){
-  	apagarLeds(E);
-  	apagarLeds(F);	
-  	encenderLeds(A);
-  	encenderLeds(B);
-  	encenderLeds(C);
-  	encenderLeds(D);
-  	encenderLeds(G);
+  apagarLeds(E);
+  apagarLeds(F);	
+  encenderLeds(A);
+  encenderLeds(B);
+  encenderLeds(C);
+  encenderLeds(D);
+  encenderLeds(G);
 }
 
 void numeroCuatro(void){
-  	apagarLeds(A);
-  	apagarLeds(D);
-  	apagarLeds(E);
-  	encenderLeds(B);
-  	encenderLeds(C);
-  	encenderLeds(F);
-  	encenderLeds(G);
+  apagarLeds(A);
+  apagarLeds(D);
+  apagarLeds(E);
+  encenderLeds(B);
+  encenderLeds(C);
+  encenderLeds(F);
+  encenderLeds(G);
 }
 
 void numeroCinco(void) {
