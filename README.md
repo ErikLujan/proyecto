@@ -424,4 +424,4 @@ bool esPrimo(int numero) {
 ```
 
 # <h2>👾 Link al Proyecto</h2>
-- [Proyecto](https://www.tinkercad.com/things/2oZenVKQGJk)
+- [Proyecto](https://www.tinkercad.com/things/ayVbRWMEuxx?sharecode=xy0MkARUjB6LBet81BTRJ3mMHIp9zf_gw6hcdbU7I0Q)
