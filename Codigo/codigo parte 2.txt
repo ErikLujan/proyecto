@@ -20,7 +20,6 @@ int baja = 1;
 int bajaPrevia = 1;
 int interruptorEstado = 1;
 int interruptorEstadoPrevia = 1;
-int valorTemperatura = 225;
 bool modoPrimos = false;
 
 void setup()
@@ -55,11 +54,14 @@ void loop()
   // Lee el estado del interruptor deslizante
   interruptorEstado = digitalRead(INTERRUPTOR);
   
-  int lecturaTemperatura = analogRead(TEMPERATURA);
+  int lecturaTemp;
+  int temperatura;
+  lecturaTemp = analogRead(TEMPERATURA);
+  temperatura = map(lecturaTemp, 20, 358, -40, 125);
   
-  if (lecturaTemperatura > valorTemperatura)
+  if (temperatura > 60)
   {
-    contador = 0;
+    mostrarSecuenciaAleatoria();
   }
   else 
   {
@@ -115,7 +117,6 @@ void loop()
       }
     }
   }
-  
   // Muestra el contador en los displays
   MostrarContador(contador);
 }
@@ -127,10 +128,14 @@ int botonPresionado(void)
   baja = digitalRead(botonBajar);
   
   if (sube)
+  {
     subePrevia = 1;
-  
+  }
+
   if (baja)
+  {
     bajaPrevia = 1;
+  }
   
   if (sube == 0 && sube != subePrevia)
   {
@@ -145,6 +150,30 @@ int botonPresionado(void)
   }
   
   return 0;  // Si ningún botón está presionado, retorna 0
+}
+
+void mostrarSecuenciaAleatoria(void)
+{
+    encenderLeds(A);
+    encenderLeds(F);
+    encenderLeds(E);
+    encenderLeds(D);
+    encenderLeds(C);
+    encenderLeds(B);
+    encenderLeds(G);
+    encenderLeds(UNIDAD);
+    encenderLeds(DECENA);
+    delay(100);
+    apagarLeds(A);
+    apagarLeds(F);
+    apagarLeds(E);
+    apagarLeds(D);
+    apagarLeds(C);
+    apagarLeds(B);
+    apagarLeds(G);
+    apagarLeds(UNIDAD);
+    apagarLeds(DECENA);
+    delay(100);
 }
 
 void ApagarDisplay() // Apaga todos los leds de los displays
@@ -278,15 +307,15 @@ void numeroUno(void){
   apagarLeds(E);
   apagarLeds(F);
   apagarLeds(G);
-	encenderLeds(B);
+  encenderLeds(B);
   encenderLeds(C);
 }
 
 void numeroDos(void){
-	apagarLeds(C);
+  apagarLeds(C);
   apagarLeds(F);
   encenderLeds(A);
-	encenderLeds(B);
+  encenderLeds(B);
   encenderLeds(D);
   encenderLeds(E);
   encenderLeds(G); 	
