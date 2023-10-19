@@ -201,6 +201,7 @@ void apagarLeds(int pin)
   digitalWrite(pin, LOW);
 }
 
+// Funciones para mostrar números en los displays
 void numeroCero(void){
   apagarLeds(G);
   encenderLeds(A);
@@ -211,45 +212,44 @@ void numeroCero(void){
   encenderLeds(F);
 }
 
-// Funciones para mostrar números en los displays
 void numeroUno(void){
-    apagarLeds(A);
-  	apagarLeds(D);
-  	apagarLeds(E);
-  	apagarLeds(F);
-    apagarLeds(G);
-	encenderLeds(B);
-    encenderLeds(C);
+  apagarLeds(A);
+  apagarLeds(D);
+  apagarLeds(E);
+  apagarLeds(F);
+  apagarLeds(G);
+  encenderLeds(B);
+  encenderLeds(C);
 }
 
 void numeroDos(void){
-	apagarLeds(C);
-  	apagarLeds(F);
-  	encenderLeds(A);
-	encenderLeds(B);
-  	encenderLeds(D);
-  	encenderLeds(E);
-  	encenderLeds(G); 	
+  apagarLeds(C);
+  apagarLeds(F);
+  encenderLeds(A);
+  encenderLeds(B);
+  encenderLeds(D);
+  encenderLeds(E);
+  encenderLeds(G); 	
 }
 
 void numeroTres(void){
-  	apagarLeds(E);
-  	apagarLeds(F);	
-  	encenderLeds(A);
-  	encenderLeds(B);
-  	encenderLeds(C);
-  	encenderLeds(D);
-  	encenderLeds(G);
+  apagarLeds(E);
+  apagarLeds(F);	
+  encenderLeds(A);
+  encenderLeds(B);
+  encenderLeds(C);
+  encenderLeds(D);
+  encenderLeds(G);
 }
 
 void numeroCuatro(void){
-  	apagarLeds(A);
-  	apagarLeds(D);
-  	apagarLeds(E);
-  	encenderLeds(B);
-  	encenderLeds(C);
-  	encenderLeds(F);
-  	encenderLeds(G);
+  apagarLeds(A);
+  apagarLeds(D);
+  apagarLeds(E);
+  encenderLeds(B);
+  encenderLeds(C);
+  encenderLeds(F);
+  encenderLeds(G);
 }
 
 void numeroCinco(void) {
