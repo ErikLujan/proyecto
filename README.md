@@ -304,49 +304,105 @@ Este circuito es una modificacion del anterior, con la diferencia de que en luga
 
 # <h2>Cambios en la funcion principal (loop)</h2>
 A diferencia de la parte 1, aca hubo unos cuantos cambios:
-- La función loop() comienza leyendo el estado del interruptor desde el pin INTERRUPTOR y la lectura de la temperatura desde el pin TEMPERATURA.
-- Verifica si la temperatura medida (lecturaTemperatura) supera el valor de temperatura (valorTemperatura). Si la temperatura es alta, apaga los displays llamando a ApagarDisplay().
-- Si la temperatura está por debajo del valor, entonces se procede a verificar el estado del interruptor. Si esta en HIGH, se muestra el contador con todos los numeros del 0 al 99. Caso contrario, se mostraran solamente los numeros primos dentro de ese rango (0-99).
+- Lee el estado del interruptor deslizante y almacena su valor en interruptorEstado.
+- Realiza una lectura analógica de un sensor de temperatura y guarda su valor en lecturaTemperatura.
+- Compara la lectura de temperatura con el valor de la temperatura. Si la temperatura es mayor que este, el contador se reinicia a cero.
+- Si la temperatura está por debajo del valor, entonces se procede a verificar el estado del interruptor. Si esta en HIGH, el modo de visualizacion cambia y mostrara el contador con todos los numeros del 0 al 99. Caso contrario, su modo de visualizacion sera solo para los numeros primos.
 ```
 void loop()
 {
-  estadoInterruptor = digitalRead(INTERRUPTOR);
+  int presionado = botonPresionado();
+  interruptorEstado = digitalRead(INTERRUPTOR);
+  
   int lecturaTemperatura = analogRead(TEMPERATURA);
- 
+  
   if (lecturaTemperatura > valorTemperatura)
   {
-    ApagarDisplay();
+    contador = 0;
   }
   else 
   {
-    if (estadoInterruptor == HIGH)
+    if (interruptorEstado != interruptorEstadoPrevia)
     {
-      for (int i = 0; i <= 99; i++)
+      interruptorEstadoPrevia = interruptorEstado;
+      modoPrimos = (interruptorEstado == LOW);
+      contador = 0;
+    }
+    if (!modoPrimos)
+    {
+      if (presionado == botonSubir)
       {
-        MostrarContador(i);
-        estadoInterruptor = digitalRead(INTERRUPTOR);
-        if (estadoInterruptor == LOW)
+        contador++;
+        if (contador > 99)
         {
-          break;
+          contador = 0;
+        }
+      }
+      else if (presionado == botonBajar)
+      {
+        contador--;
+        if (contador < 0)
+        {
+          contador = 99;
         }
       }
     }
     else
     {
-      for (int i = 0; i <= 99; i++)
+      if (presionado == botonSubir)
       {
-        if (esPrimo(i))
+        do {
+          contador++;
+        } while (!esPrimo(contador) && contador <= 99);
+        if (contador > 99)
         {
-          MostrarContador(i);
+          contador = 0;
         }
-        estadoInterruptor = digitalRead(INTERRUPTOR);
-        if (estadoInterruptor == HIGH)
+      }
+      else if (presionado == botonBajar)
+      {
+        do {
+          contador--;
+        } while (!esPrimo(contador) && contador >= 0);
+        if (contador < 0)
         {
-          break;
+          contador = 97;
         }
       }
     }
   }
+  MostrarContador(contador);
+}
+```
+
+# <h2>Cambios en la funcion botonPresionado()</h2>
+El unico cambio que se ha realizado en esta funcion, fue eliminar la lectura del reset y el if que verificaba el estado del botonReset, al igual que su retorno. Ya que se reemplazo este boton por el interruptor. El resto sigue funcionando igual.
+```
+int botonPresionado(void)
+{ 
+  sube = digitalRead(botonSubir);
+  baja = digitalRead(botonBajar);
+  
+  if (sube)
+  {
+    subePrevia = 1;
+  }
+
+  if (baja)
+  {
+    bajaPrevia = 1;
+  }
+  if (sube == 0 && sube != subePrevia)
+  {
+    subePrevia = sube;
+    return botonSubir; 
+  }
+  if (baja == 0 && baja != bajaPrevia)
+  {
+    bajaPrevia = baja;
+    return botonBajar;
+  }
+  return 0;
 }
 ```
 
