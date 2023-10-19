@@ -11,14 +11,11 @@
 #define botonReset 4
 #define UNIDAD A4
 #define DECENA A5
-#define tiempo 10
 
+int tiempo = 10;
 int contador = 0;
-int sube = 1;
 int subePrevia = 1;
-int baja = 1;
 int bajaPrevia = 1;
-int reset = 1;
 int resetPrevia = 1;
 
 void setup()
@@ -160,32 +157,42 @@ void MostrarContador(int contador)
 int botonPresionado(void)
 {
   // Lee el estado de los botones y retorna el botón presionado
-  sube = digitalRead(botonSubir);
-  baja = digitalRead(botonBajar);
-  reset = digitalRead(botonReset);
+  int lecturaSube = digitalRead(botonSubir);
+  int lecturaBaja = digitalRead(botonBajar);
+  int lecturaReset = digitalRead(botonReset);
   
-  if(sube)
+  if(lecturaSube == 1)
+  {
     subePrevia = 1;
-  if(baja)
+  }
+
+  if(lecturaBaja == 1)
+  {
     bajaPrevia = 1;
-  if(reset)
+  }
+
+  if(lecturaReset == 1)
+  {
     resetPrevia = 1;
+  }
   
-    if(sube == 0 && sube != subePrevia)
-    {
-      subePrevia = sube;
-      return botonSubir;
-    }
-    if(baja == 0 && baja != bajaPrevia)
-    {
-      bajaPrevia = baja;
-      return botonBajar;
-    }
-    if(reset == 0 && reset != resetPrevia)
-    {
-      resetPrevia = reset;
-      return botonReset;
-    }
+  if(lecturaSube == 0 && lecturaSube != subePrevia)
+  {
+    subePrevia = lecturaSube;
+    return botonSubir;
+  }
+
+  if(lecturaBaja == 0 && lecturaBaja != bajaPrevia)
+  {
+    bajaPrevia = lecturaBaja;
+    return botonBajar;
+  }
+
+  if(lecturaReset == 0 && lecturaReset != resetPrevia)
+  {
+    resetPrevia = lecturaReset;
+    return botonReset;
+  }
  return 0;
 }
 
@@ -201,7 +208,6 @@ void apagarLeds(int pin)
   digitalWrite(pin, LOW);
 }
 
-// Funciones para mostrar números en los displays
 void numeroCero(void){
   apagarLeds(G);
   encenderLeds(A);
@@ -212,6 +218,7 @@ void numeroCero(void){
   encenderLeds(F);
 }
 
+// Funciones para mostrar números en los displays
 void numeroUno(void){
   apagarLeds(A);
   apagarLeds(D);
