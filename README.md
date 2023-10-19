@@ -299,7 +299,7 @@ void numeroNueve(void) {
 }
 ```
 
-# 👾 <h2>Link al Proyecto</h2>
+# <h2>👾 Link al Proyecto</h2>
 - [Proyecto (Parte 1)](https://www.tinkercad.com/things/86LzXQmuniS)
 
 # <h2>📌 Parte 2: Modificación con Interruptor Deslizante y Números Primos</h2>
