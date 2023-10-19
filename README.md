@@ -311,8 +311,8 @@ Este circuito es una modificacion del anterior, con la diferencia de que en luga
 # <h2>Cambios en la funcion principal (loop)</h2>
 A diferencia de la parte 1, aca hubo unos cuantos cambios:
 - Lee el estado del interruptor deslizante y almacena su valor en interruptorEstado.
-- Realiza una lectura analógica de un sensor de temperatura y guarda su valor en lecturaTemperatura.
-- Compara la lectura de temperatura con el valor de la temperatura. Si la temperatura es mayor que este, el contador se reinicia a cero.
+- Realiza una lectura analógica de un sensor de temperatura y guarda su valor en lecturaTemp.
+- Compara la lectura de temperatura con un valor determinado (en este caso 60, representando los grados celsius). Si la temperatura es mayor que este, el contador se reinicia a cero.
 - Si la temperatura está por debajo del valor, entonces se procede a verificar el estado del interruptor. Si esta en HIGH, el modo de visualizacion cambia y mostrara el contador con todos los numeros del 0 al 99. Caso contrario, su modo de visualizacion sera solo para los numeros primos.
 ```
 void loop()
