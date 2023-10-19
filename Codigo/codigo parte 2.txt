@@ -1,4 +1,4 @@
-// Contador con Interruptor Deslizante y Números Primos
+//Modificacion con Interruptor Deslizante y Números Primos
 #define A 10
 #define B 11
 #define C 5
@@ -6,25 +6,33 @@
 #define E 7
 #define F 9
 #define G 8
-
-#define TEMPERATURA A0
-#define INTERRUPTOR 3
-
+#define botonSubir 3
+#define botonBajar 2
+#define INTERRUPTOR 4
 #define UNIDAD A4
 #define DECENA A5
+#define TEMPERATURA A0
 
-int estadoInterruptor; 
 int contador = 0;
+int sube = 1;
+int subePrevia = 1;
+int baja = 1;
+int bajaPrevia = 1;
+int interruptorEstado = 1;
+int interruptorEstadoPrevia = 1;
 int valorTemperatura = 225;
+bool modoPrimos = false;
 
 void setup()
 {
-  // Configura los pines del interruptor y temperatura como entrada
+  // Configura los pines de botones y el interruptor como entrada
+  pinMode(botonSubir, INPUT_PULLUP);
+  pinMode(botonBajar, INPUT_PULLUP);
+  pinMode(INTERRUPTOR, INPUT_PULLUP);
   pinMode(TEMPERATURA, INPUT);
-  pinMode(INTERRUPTOR, INPUT);
   
   // Configura los pines de los displays como salida
-  for(int i = 0; i <= 12 ; i++)
+  for (int i = 0; i <= 12; i++)
   {
     pinMode(i, OUTPUT);
   }
@@ -41,61 +49,105 @@ void setup()
 
 void loop()
 {
-  estadoInterruptor = digitalRead(INTERRUPTOR);
+  // Lee el botón presionado
+  int presionado = botonPresionado();
+  
+  // Lee el estado del interruptor deslizante
+  interruptorEstado = digitalRead(INTERRUPTOR);
+  
   int lecturaTemperatura = analogRead(TEMPERATURA);
- 
+  
   if (lecturaTemperatura > valorTemperatura)
   {
-    ApagarDisplay();
+    contador = 0;
   }
   else 
   {
-    if (estadoInterruptor == HIGH)
+    // Cambia el modo de visualización cuando se mueve el interruptor
+    if (interruptorEstado != interruptorEstadoPrevia)
     {
-      for (int i = 0; i <= 99; i++)
+      interruptorEstadoPrevia = interruptorEstado;
+      modoPrimos = (interruptorEstado == LOW);
+      contador = 0; // Reinicia el contador al cambiar el interruptor
+    }
+
+    // Actualiza el contador según el botón presionado y el estado del interruptor
+    if (!modoPrimos)
+    {
+      if (presionado == botonSubir)
       {
-        MostrarContador(i); // Muestra números del 0 al 99
-        estadoInterruptor = digitalRead(INTERRUPTOR);
-        if (estadoInterruptor == LOW)
+        contador++;
+        if (contador > 99)
         {
-          break;
+          contador = 0;
+        }
+      }
+      else if (presionado == botonBajar)
+      {
+        contador--;
+        if (contador < 0)
+        {
+          contador = 99;
         }
       }
     }
     else
     {
-      for (int i = 0; i <= 99; i++)
+      if (presionado == botonSubir)
       {
-        if (esPrimo(i))
+        do {
+          contador++;
+        } while (!esPrimo(contador) && contador <= 99);
+        if (contador > 99)
         {
-          MostrarContador(i); // Muestra los numeros primos entre 0 y 99
+          contador = 0;
         }
-        estadoInterruptor = digitalRead(INTERRUPTOR);
-        if (estadoInterruptor == HIGH)
+      }
+      else if (presionado == botonBajar)
+      {
+        do {
+          contador--;
+        } while (!esPrimo(contador) && contador >= 0);
+        if (contador < 0)
         {
-          break;
+          contador = 97;
         }
       }
     }
   }
+  
+  // Muestra el contador en los displays
+  MostrarContador(contador);
 }
 
-bool esPrimo(int numero) {
-  // Comprueba si el número es menor o igual a 1, que no se considera primo.
-  if (numero <= 1) {
-    return false; // Retorna falso si el número es 0 o 1.
+int botonPresionado(void)
+{ 
+  // Leer el estado de los botones
+  sube = digitalRead(botonSubir);
+  baja = digitalRead(botonBajar);
+  
+  if (sube)
+    subePrevia = 1;
+  
+  if (baja)
+    bajaPrevia = 1;
+  
+  if (sube == 0 && sube != subePrevia)
+  {
+    subePrevia = sube;
+    return botonSubir;  // Retorna el valor del botón "subir"
   }
-  // Comprueba si el número es divisible por cualquier valor desde 2 hasta la raíz cuadrada del número.
-  for (int i = 2; i * i <= numero; i++) {
-    if (numero % i == 0) {
-      return false; // Retorna falso si el número es divisible por algún valor en ese rango.
-    }
+  
+  if (baja == 0 && baja != bajaPrevia)
+  {
+    bajaPrevia = baja;
+    return botonBajar;  // Retorna el valor del botón "bajar"
   }
-  // Si no se encontraron divisores en el rango, el número se considera primo y retorna verdadero.
-  return true;
+  
+  return 0;  // Si ningún botón está presionado, retorna 0
 }
 
-void ApagarDisplay()// Apaga todos los leds de los display
+void ApagarDisplay() // Apaga todos los leds de los displays
 {
   apagarLeds(A);
   apagarLeds(B);
@@ -110,7 +162,7 @@ void MostrarDigito(int digito)
 {
   // Apaga los displays y muestra el dígito especificado
   ApagarDisplay();
-  switch(digito)
+  switch (digito)
   {
     case 0:
       numeroCero();
@@ -167,14 +219,34 @@ void prenderDigito(int digito)
 
 void MostrarContador(int contador)
 {
+  // Muestra las unidades y las decenas del contador en los displays
   ApagarDisplay();
   prenderDigito(UNIDAD);
   MostrarDigito(contador % 10);
-  delay(175);
+  delay(5);
   ApagarDisplay();
   prenderDigito(DECENA);
   MostrarDigito(contador / 10);
-  delay(200);
+  delay(10);
+}
+
+bool esPrimo(int numero)
+{
+  // Comprueba si el número es menor o igual a 1, que no se considera primo.
+  if (numero <= 1)
+  {
+    return false; // Retorna falso si el número es 0 o 1.
+  }
+  // Comprueba si el número es divisible por cualquier valor desde 2 hasta la raíz cuadrada del número.
+  for (int i = 2; i * i <= numero; i++)
+  {
+    if (numero % i == 0)
+    {
+      return false; // Retorna falso si el número es divisible por algún valor en ese rango.
+    }
+  }
+  // Si no se encontraron divisores en el rango, el número se considera primo y retorna verdadero.
+  return true;
 }
 
 void encenderLeds(int pin)
@@ -206,15 +278,15 @@ void numeroUno(void){
   apagarLeds(E);
   apagarLeds(F);
   apagarLeds(G);
-  encenderLeds(B);
+	encenderLeds(B);
   encenderLeds(C);
 }
 
 void numeroDos(void){
-  apagarLeds(C);
+	apagarLeds(C);
   apagarLeds(F);
   encenderLeds(A);
-  encenderLeds(B);
+	encenderLeds(B);
   encenderLeds(D);
   encenderLeds(E);
   encenderLeds(G); 	
