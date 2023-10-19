@@ -313,12 +313,15 @@ void loop()
 {
   int presionado = botonPresionado();
   interruptorEstado = digitalRead(INTERRUPTOR);
+
+  int lecturaTemp;
+  int temperatura;
+  lecturaTemp = analogRead(TEMPERATURA);
+  temperatura = map(lecturaTemp, 20, 358, -40, 125);
   
-  int lecturaTemperatura = analogRead(TEMPERATURA);
-  
-  if (lecturaTemperatura > valorTemperatura)
+  if (temperatura > 60)
   {
-    contador = 0;
+    mostrarSecuenciaAleatoria();
   }
   else 
   {
@@ -403,6 +406,34 @@ int botonPresionado(void)
     return botonBajar;
   }
   return 0;
+}
+```
+
+# <h2>Funcion mostrarSecuenciaAleatoria</h2>
+Esta funcion se encarga de generar una especie de parpadeo en el display, apagando y prendiendo cada pin por un determinado tiempo. La idea de esta funcion fue utilizarla como un "pausador" del contador, es decir, si se la temperatura es superior al valor dado, el contador se va a pausar.
+```
+void mostrarSecuenciaAleatoria(void)
+{
+    encenderLeds(A);
+    encenderLeds(F);
+    encenderLeds(E);
+    encenderLeds(D);
+    encenderLeds(C);
+    encenderLeds(B);
+    encenderLeds(G);
+    encenderLeds(UNIDAD);
+    encenderLeds(DECENA);
+    delay(100);
+    apagarLeds(A);
+    apagarLeds(F);
+    apagarLeds(E);
+    apagarLeds(D);
+    apagarLeds(C);
+    apagarLeds(B);
+    apagarLeds(G);
+    apagarLeds(UNIDAD);
+    apagarLeds(DECENA);
+    delay(100);
 }
 ```
 
