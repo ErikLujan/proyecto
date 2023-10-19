@@ -294,7 +294,7 @@ void numeroNueve(void) {
 ```
 
 # 👾 <h2>Link al Proyecto</h2>
-- [Proyecto](https://www.tinkercad.com/things/86LzXQmuniS)
+- [Proyecto (Parte 1)](https://www.tinkercad.com/things/86LzXQmuniS)
 
 # <h2>📌 Parte 2: Modificación con Interruptor Deslizante y Números Primos</h2>
 ![Logo de GitHub](https://github.com/ErikLujan/proyecto/blob/main/Imagen/Modificacion%20con%20Interruptor.png)
@@ -424,4 +424,4 @@ bool esPrimo(int numero) {
 ```
 
 # <h2>👾 Link al Proyecto</h2>
-- [Proyecto](https://www.tinkercad.com/things/ayVbRWMEuxx?sharecode=xy0MkARUjB6LBet81BTRJ3mMHIp9zf_gw6hcdbU7I0Q)
+- [Proyecto (Parte 2)](https://www.tinkercad.com/things/ayVbRWMEuxx)
