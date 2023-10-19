@@ -150,32 +150,38 @@ void MostrarContador(int contador)
 ```
 int botonPresionado(void)
 {
-  sube = digitalRead(botonSubir);
-  baja = digitalRead(botonBajar);
-  reset = digitalRead(botonReset);
+  int lecturaSube = digitalRead(botonSubir);
+  int lecturaBaja = digitalRead(botonBajar);
+  int lecturaReset = digitalRead(botonReset);
   
-  if(sube)
+  if(lecturaSube == 1)
+  {
     subePrevia = 1;
-  if(baja)
+  }
+  if(lecturaBaja == 1)
+  {
     bajaPrevia = 1;
-  if(reset)
+  }
+  if(lecturaReset == 1)
+  {
     resetPrevia = 1;
+  }
   
-    if(sube == 0 && sube != subePrevia)
-    {
-      subePrevia = sube;
-      return botonSubir;
-    }
-    if(baja == 0 && baja != bajaPrevia)
-    {
-      bajaPrevia = baja;
-      return botonBajar;
-    }
-    if(reset == 0 && reset != resetPrevia)
-    {
-      resetPrevia = reset;
-      return botonReset;
-    }
+  if(lecturaSube == 0 && lecturaSube != subePrevia)
+  {
+    subePrevia = lecturaSube;
+    return botonSubir;
+  }
+  if(lecturaBaja == 0 && lecturaBaja != bajaPrevia)
+  {
+    bajaPrevia = lecturaBaja;
+    return botonBajar;
+  }
+  if(lecturaReset == 0 && lecturaReset != resetPrevia)
+  {
+    resetPrevia = lecturaReset;
+    return botonReset;
+  }
  return 0;
 }
 ```
@@ -383,26 +389,28 @@ El unico cambio que se ha realizado en esta funcion, fue eliminar la lectura del
 ```
 int botonPresionado(void)
 { 
-  sube = digitalRead(botonSubir);
-  baja = digitalRead(botonBajar);
+  int lecturaSube = digitalRead(botonSubir);
+  int lecturaBaja = digitalRead(botonBajar);
   
-  if (sube)
+  if (lecturaSube == 1)
   {
     subePrevia = 1;
   }
 
-  if (baja)
+  if (lecturaBaja == 1)
   {
     bajaPrevia = 1;
   }
-  if (sube == 0 && sube != subePrevia)
+  
+  if (lecturaSube == 0 && lecturaSube != subePrevia)
   {
-    subePrevia = sube;
-    return botonSubir; 
+    subePrevia = lecturaSube;
+    return botonSubir;
   }
-  if (baja == 0 && baja != bajaPrevia)
+  
+  if (lecturaBaja == 0 && lecturaBaja != bajaPrevia)
   {
-    bajaPrevia = baja;
+    bajaPrevia = lecturaBaja;
     return botonBajar;
   }
   return 0;
