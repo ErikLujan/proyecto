@@ -14,9 +14,7 @@
 #define TEMPERATURA A0
 
 int contador = 0;
-int sube = 1;
 int subePrevia = 1;
-int baja = 1;
 int bajaPrevia = 1;
 int interruptorEstado = 1;
 int interruptorEstadoPrevia = 1;
@@ -124,28 +122,28 @@ void loop()
 int botonPresionado(void)
 { 
   // Leer el estado de los botones
-  sube = digitalRead(botonSubir);
-  baja = digitalRead(botonBajar);
+  int lecturaSube = digitalRead(botonSubir);
+  int lecturaBaja = digitalRead(botonBajar);
   
-  if (sube)
+  if (lecturaSube == 1)
   {
     subePrevia = 1;
   }
 
-  if (baja)
+  if (lecturaBaja == 1)
   {
     bajaPrevia = 1;
   }
   
-  if (sube == 0 && sube != subePrevia)
+  if (lecturaSube == 0 && lecturaSube != subePrevia)
   {
-    subePrevia = sube;
+    subePrevia = lecturaSube;
     return botonSubir;  // Retorna el valor del botón "subir"
   }
   
-  if (baja == 0 && baja != bajaPrevia)
+  if (lecturaBaja == 0 && lecturaBaja != bajaPrevia)
   {
-    bajaPrevia = baja;
+    bajaPrevia = lecturaBaja;
     return botonBajar;  // Retorna el valor del botón "bajar"
   }
   
